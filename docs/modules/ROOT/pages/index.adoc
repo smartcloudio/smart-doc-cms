@@ -48,9 +48,105 @@ The other docs component, Component A, can be accessed using the component selec
 
 == Page source
 
+
+:sectnums:
+
+
+
+
+
+
+
+.Concessão de Credenciais para Acesso a Api
+[plantuml, "yet-another-activity-diagram-example",format="png",opts="inline"]
+-------------------------------------------
+@startuml
+title Client Credentials Grant
+
+participant "Client \n " as Client #99FF99
+participant "Authorization \n Server" as Auth
+participant "Resource Api \n Server" as L #99FF99
+
+Client->Auth: Get <back:#EEEBDC> Access Token </back>
+Auth -> Auth: Authorize Client.\nGenerate <back:#EEEBDC> Access Token </back>
+Auth->Client: Send <back:#EEEBDC> Access Token </back>
+
+Client->Auth: Refresh <back:#EEEBDC> Access Token </back>
+note right of Client
+ <color #333333>**Put Access Token in Header**</color>
+end note
+Auth -> Auth: Validate Token.\nGenerate <back:#EEEBDC> Access Token </back>
+Auth->Client: Send <back:#EEEBDC> Access Token </back>
+
+Client->L: Request Protect Resources 
+note right of Client
+ <color #333333>**Put Access Token in Header**</color>
+end note
+
+L->Client: Return Protect Resources 
+
+
+@enduml
+-------------------------------------------
+
 This page is sourced from the AsciiDoc file named [.path]_index.adoc_ that is located at [.path]_demo-component-b/docs/modules/ROOT/pages_.
 
 === Why is this the home page of Component B?
+
+
+## Diagrama da Classe JornalItem
+
+.Diagrama da Classe JornalItem
+[plantuml, target=diagram-classes, format=png]   
+....
+class JornalItem
+class Journal
+class JornalEntry
+class Partner
+class Tax
+class Account
+class ProductUom
+class Product
+
+JornalItem <|-- Journal
+JornalItem <|-- JornalEntry
+JornalItem <|-- Partner
+JornalItem <|-- Tax
+JornalItem <|-- Account
+JornalItem <|-- ProductUom
+JornalItem <|-- Product
+....
+
+## Diagrama da Classe SaleOrder
+
+.Diagrama da Classe SaleOrder
+[plantuml, target=diagram-classes3, format=png]   
+....
+class User
+class SaleOrder
+class SaleOrderLine
+class Inventory
+class Invoice
+class Payment
+class DeliveryOrder
+class DeliveryOrderLine
+
+User <|-- SaleOrder
+
+
+SaleOrder <|-- Invoice
+SaleOrder <|-- SaleOrderLine
+SaleOrderLine <|-- Product
+Product <|--|> Inventory
+Invoice <|-- Payment
+User -- DeliveryOrder
+
+SaleOrder -- DeliveryOrder
+DeliveryOrder --|> DeliveryOrderLine
+....
+
+
+
 
 This page is automatically used as the start page of Component B because it is stored in the ROOT module and named [.path]_index.adoc_.
 
